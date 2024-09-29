@@ -48,18 +48,20 @@ function hashPassword(next) {
     next();
 }
 
-userSchema.pre(['save'], hashPassword);
+userSchema.pre(['save'], function (next) {
+    hashPassword.call(this, next);
+});
 
 userSchema.methods = {
-    isAuthorized: async function (password) {
+    isAuthorized: function (password) {
         return compareSync(password, this.password);
     },
 
-    hash: async function (password) {
+    hash: function (password) {
         return hashSync(password, 10);
     },
-    isUnauthorized: async function (password) {
-        const authorized = await this.isAuthorized(password);
+    isUnauthorized: function (password) {
+        const authorized = this.isAuthorized(password);
         return Boolean(!authorized);
     },
 

@@ -10,8 +10,6 @@ export default async function (req, res, next) {
         const accessToken = req.headers.authorization?.replace('Bearer', '') || req.cookies['jwt-auth.access-token'];
         const refreshToken = req.cookies['jwt-auth.refresh-token'];
 
-        // console.log('refresh', refreshToken, 'access', accessToken);
-
         if (!accessToken) throw new CustomError('JWT access token must be provided', 401);
 
         if (isAccessTokenExpire(accessToken) && refreshToken) {
