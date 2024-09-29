@@ -1,4 +1,4 @@
-import { model, Schema, Types } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { compareSync, hashSync } from 'bcrypt';
 import { emailValidator } from '../utils/validators.js';
 import jwt from 'jsonwebtoken';
@@ -41,12 +41,12 @@ const userSchema = new Schema(
     { timestamps: true, toJSON: { virtuals: true } }
 );
 
-const hashPassword = async function (next) {
+function hashPassword(next) {
     if (this.isModified('password')) {
         this.password = this.hash(this.password);
     }
     next();
-};
+}
 
 userSchema.pre(['save'], hashPassword);
 

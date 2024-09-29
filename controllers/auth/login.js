@@ -4,11 +4,10 @@ import { generateJwtPair } from '../../utils/jwt/jwt.js';
 import { setTokenCookies } from '../../utils/jwt/token.js';
 
 const login = async function (req, res, next) {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
     try {
-        const query = { $or: [{ email }, { username }] };
-        const user = await User.findOne(query);
+        const user = await User.findOne({ email });
 
         if (!user) throw new CustomError(`We can't find account with ${email}`, 404);
 

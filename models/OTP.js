@@ -3,7 +3,7 @@ import { emailValidator } from '../utils/validators.js';
 
 const required = true;
 
-export const VerificationType = ['email-confirmation', 'password-reset'];
+const VerificationType = ['email-confirmation', 'password-reset'];
 
 const OTPschema = new Schema({
     email: {
