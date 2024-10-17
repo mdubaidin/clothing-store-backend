@@ -26,9 +26,9 @@ const isAccessTokenExpire = accessToken => {
     return decodedToken.exp ? decodedToken.exp < now : true;
 };
 
-const setTokenCookies = (res, accessToken, refreshToken) => {
-    res.cookie('jwt-auth.access-token', accessToken);
-    res.cookie('jwt-auth.refresh-token', refreshToken);
+const setTokenCookies = (res, accessToken, refreshToken, options) => {
+    res.cookie('jwt-auth.access-token', accessToken, { secure: true, httpOnly: true, sameSite: 'strict', ...options });
+    res.cookie('jwt-auth.refresh-token', refreshToken, { secure: true, httpOnly: true, sameSite: 'strict', ...options });
 };
 
 const clearTokenCookies = res => {

@@ -24,12 +24,12 @@ app.use(cookieParser());
 app.use(morgan('dev'));
 app.use('/public', express.static('public'));
 
-app.use(authorize);
-app.use('/api/auth', authRouter);
+app.use('/api/auth', authorize, authRouter);
 
 app.use(validateJWT);
 app.use(authenticate);
 app.use('/api/users', userRouter);
+
 app.use(errorHandler);
 
 export default app;

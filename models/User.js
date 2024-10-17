@@ -73,7 +73,7 @@ userSchema.methods = {
     },
 
     signAccessToken: function () {
-        return jwt.sign({ id: this._id }, PRIVATE_KEY, {
+        return jwt.sign({ id: this._id, name: this.name, email: this.email }, PRIVATE_KEY, {
             algorithm: 'RS256',
             expiresIn: process.env.EXPIRE_JWT_ACCESS_TOKEN,
         });
